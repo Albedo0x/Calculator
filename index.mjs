@@ -13,7 +13,7 @@ calcInput.addEventListener("click", (event) => {
 
   // Если нажал не на кнопку - ничего не делаем
 
-  if (!clickedBtn.classList.contains("calculator-input-btn")) {
+  if (!clickedBtn.classList.contains("calculator-btn")) {
     return;
   }
 

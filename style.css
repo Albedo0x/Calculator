@@ -55,7 +55,7 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
 }
-.calculator-input-btn {
+.calculator-btn {
   display: grid;
   justify-content: center;
   align-content: center;
@@ -70,12 +70,12 @@
   user-select: none;
 }
 @media (min-width: 320px) and (max-width:767px) {
-  .calculator-input-btn {
+  .calculator-btn {
     width: 40px;
     height: 40px;
     font-size: 24px;
   }
 }
-.calculator-input-btn:hover {
+.calculator-btn:hover {
   background-color: rgba(255, 255, 255, 0.418);
 }
