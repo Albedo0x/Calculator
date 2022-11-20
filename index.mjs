@@ -27,7 +27,6 @@ calcInput.addEventListener("click", (event) => {
 
   if (clickedBtn.classList.contains("btn-save")) {
     localStorage.setItem("savedNumber", number1);
-    console.log("saved:", number1);
   }
 
   // Если нажал на "MC" - взять сохранённое значениеw
@@ -43,7 +42,6 @@ calcInput.addEventListener("click", (event) => {
       inputScreen.innerHTML = pullItem;
       number2 = pullItem;
     }
-    console.log(number1, operation, number2, state);
   }
 
   // Если нажата одна из цифр - необходимо начать набирать переменные
@@ -57,12 +55,10 @@ calcInput.addEventListener("click", (event) => {
         number2 = number2 + clickedBtn.innerHTML;
         showContent(number2);
       }
-      console.log(number1, operation, number2, state);
     } else {
       number1 = +clickedBtn.innerHTML;
       showContent(number1);
       state = false;
-      console.log(number1, operation, number2, state);
     }
   }
 
@@ -80,7 +76,6 @@ calcInput.addEventListener("click", (event) => {
       operation = clickedBtn.innerHTML;
       showContent(operation);
     }
-    console.log(number1, operation, number2, state);
   }
 
   // Вычисление результата
@@ -96,8 +91,8 @@ calcInput.addEventListener("click", (event) => {
       number1 = calculation(number1, number2, operation);
       number1 > maxN ? (inputScreen.innerHTML = "to Much") : calcState(number1);
     }
-    console.log(number1, operation, number2, state);
   }
+  console.log(number1, operation, number2, state);
 });
 
 // Функция проведения рассчётов
