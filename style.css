@@ -29,7 +29,7 @@
   width: 100%;
   height: 100%;
 }
-.calculator-screen-field {
+.calculator-screen__field {
   width: 380px;
   height: 100%;
   border: 2px solid white;
@@ -43,7 +43,7 @@
   overflow: hidden;
 }
 @media (min-width: 320px) and (max-width:767px) {
-  .calculator-screen-field {
+  .calculator-screen__field {
     width: 230px;
     font-size: 40px;
   }
