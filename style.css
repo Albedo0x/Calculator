@@ -12,9 +12,10 @@
   row-gap: 30px;
   height: 600px;
   width: 400px;
-  padding: 10px;
+  padding: 20px 10px 10px 10px;
   border: 4px solid white;
   border-radius: 7px;
+  background: rgba(255, 255, 255, 0.15);
 }
 @media (min-width: 320px) and (max-width:767px) {
   .calculator {
@@ -68,6 +69,9 @@
   border-radius: 7px;
   cursor: pointer;
   user-select: none;
+}
+.calculator-btn:last-child {
+  background-color: #76a9d6;
 }
 @media (min-width: 320px) and (max-width:767px) {
   .calculator-btn {
