@@ -1,4 +1,6 @@
-const calcInput = document.getElementsByClassName("calculator-input")[0];
+// Объявление переменных и констант
+
+const calcInput = document.getElementById("main-input");
 const inputScreen = document.getElementById("screen");
 const maxN = 999999999999;
 let number1 = "";
@@ -33,7 +35,6 @@ calcInput.addEventListener("click", (event) => {
 
   if (clickedBtn.classList.contains("btn-pull")) {
     let pullItem = localStorage.getItem("savedNumber");
-    console.log(pullItem);
     if (operation === "" && number2 === "") {
       inputScreen.innerHTML = pullItem;
       number1 = pullItem;
@@ -47,27 +48,32 @@ calcInput.addEventListener("click", (event) => {
   // Если нажата одна из цифр - необходимо начать набирать переменные
 
   if (clickedBtn.classList.contains("btn-digit")) {
+    console.log(number1, operation, number2, state);
     if (state === false) {
-      if (operation === "" && number2 === "") {
+      if (operation === "" && number2 === "" && number1 === "0") {
+        number1 = clickedBtn.innerHTML;
+        showContent(number1);
+        return;
+      }
+      if (operation === "" && number2 === "" && number1 != "0") {
         number1 = number1 + clickedBtn.innerHTML;
         showContent(number1);
+        return;
       } else {
         number2 = number2 + clickedBtn.innerHTML;
         showContent(number2);
       }
     } else {
-      number1 = +clickedBtn.innerHTML;
+      number1 = clickedBtn.innerHTML;
       showContent(number1);
       state = false;
+      console.log(number1, operation, number2, state);
     }
   }
 
   // Если нажата одна из операций необходимо начать набирать вторую переменную
 
   if (clickedBtn.classList.contains("btn-operation")) {
-    if (number1 === "") {
-      return;
-    }
     if (number1 !== "" && state === true) {
       state = false;
       operation = clickedBtn.innerHTML;
@@ -76,6 +82,7 @@ calcInput.addEventListener("click", (event) => {
       operation = clickedBtn.innerHTML;
       showContent(operation);
     }
+    console.log(number1, operation, number2, state);
   }
 
   // Вычисление результата
@@ -132,8 +139,8 @@ function calcState(info) {
 
 // Функция очистки переменных и экрана
 function clearing() {
-  inputScreen.innerHTML = 0;
-  number1 = 0;
+  inputScreen.innerHTML = "0";
+  number1 = "0";
   number2 = "";
   operation = "";
 }
