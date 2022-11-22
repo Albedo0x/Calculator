@@ -48,7 +48,6 @@ calcInput.addEventListener("click", (event) => {
   // Если нажата одна из цифр - необходимо начать набирать переменные
 
   if (clickedBtn.classList.contains("btn-digit")) {
-    console.log(number1, operation, number2, state);
     if (state === false) {
       if (operation === "" && number2 === "" && number1 === "0") {
         number1 = clickedBtn.innerHTML;
@@ -67,7 +66,6 @@ calcInput.addEventListener("click", (event) => {
       number1 = clickedBtn.innerHTML;
       showContent(number1);
       state = false;
-      console.log(number1, operation, number2, state);
     }
   }
 
@@ -82,7 +80,6 @@ calcInput.addEventListener("click", (event) => {
       operation = clickedBtn.innerHTML;
       showContent(operation);
     }
-    console.log(number1, operation, number2, state);
   }
 
   // Вычисление результата
@@ -90,16 +87,19 @@ calcInput.addEventListener("click", (event) => {
   if (clickedBtn.classList.contains("btn-result")) {
     if (number2 === "" && operation != "") {
       number1 = calculation(number1, number1, operation);
-      number1 > maxN ? (inputScreen.innerHTML = "to Much") : calcState(number1);
+      number1 > maxN
+        ? (inputScreen.innerHTML = "too Much")
+        : calcState(number1);
     }
     if (number2 === "" && operation === "") {
       calcState(number1);
     } else {
       number1 = calculation(number1, number2, operation);
-      number1 > maxN ? (inputScreen.innerHTML = "to Much") : calcState(number1);
+      number1 > maxN
+        ? (inputScreen.innerHTML = "too Much")
+        : calcState(number1);
     }
   }
-  console.log(number1, operation, number2, state);
 });
 
 // Функция проведения рассчётов
