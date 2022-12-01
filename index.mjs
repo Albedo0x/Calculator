@@ -2,7 +2,6 @@
 
 const calcInput = document.getElementById("main-input");
 const inputScreen = document.getElementById("screen");
-const maxN = 999999999999;
 let number1 = "";
 let number2 = "";
 let operation = "";
@@ -72,13 +71,12 @@ calcInput.addEventListener("click", (event) => {
   // Если нажата одна из операций необходимо начать набирать вторую переменную
 
   if (clickedBtn.classList.contains("btn-operation")) {
+    operation = clickedBtn.innerHTML;
+    showContent(operation);
     if (number1 !== "" && state === true) {
       state = false;
-      operation = clickedBtn.innerHTML;
-      showContent(operation);
     } else {
-      operation = clickedBtn.innerHTML;
-      showContent(operation);
+      return;
     }
   }
 
@@ -87,18 +85,13 @@ calcInput.addEventListener("click", (event) => {
   if (clickedBtn.classList.contains("btn-result")) {
     if (number2 === "" && operation != "") {
       number1 = calculation(number1, number1, operation);
-      number1 > maxN
-        ? (inputScreen.innerHTML = "too Much")
-        : calcState(number1);
     }
     if (number2 === "" && operation === "") {
-      calcState(number1);
+      return;
     } else {
       number1 = calculation(number1, number2, operation);
-      number1 > maxN
-        ? (inputScreen.innerHTML = "too Much")
-        : calcState(number1);
     }
+    calcState(number1);
   }
 });
 
