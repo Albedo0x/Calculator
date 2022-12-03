@@ -1,98 +1,69 @@
-// Объявление переменных и констант
-
-const calcInput = document.getElementById("main-input");
 const inputScreen = document.getElementById("screen");
 let number1 = "";
 let number2 = "";
 let operation = "";
-let state = false;
+let state = true;
+let pullItem;
+let btntext;
 
 window.onload = clearing();
 
-calcInput.addEventListener("click", (event) => {
-  let clickedBtn = event.target;
-
-  // Если нажал не на кнопку - ничего не делаем
-
-  if (!clickedBtn.classList.contains("calculator-btn")) {
-    return;
+document.querySelector(".btn-result").addEventListener("click", () => {
+  if (!number2 && operation) {
+    number1 = calculation(number1, number1, operation);
   }
-
-  // Если нажал на "C" - очистить экран и переменные
-
-  if (clickedBtn.classList.contains("btn-clear-all")) {
-    clearing();
+  if (number2) {
+    number1 = calculation(number1, number2, operation);
   }
+  calcState(number1);
+});
 
-  // Если нажал на "MR" - сохранить значение
+document.querySelector(".btn-clear-all").addEventListener("click", clearing);
 
-  if (clickedBtn.classList.contains("btn-save")) {
-    localStorage.setItem("savedNumber", number1);
+document.querySelector(".btn-save").addEventListener("click", () => {
+  localStorage.setItem("savedNumber", number1);
+});
+
+document.querySelector(".btn-pull").addEventListener("click", () => {
+  pullItem = localStorage.getItem("savedNumber");
+  showContent(pullItem);
+  if (!operation) {
+    number1 = pullItem;
   }
+  if (operation) {
+    number2 = pullItem;
+  }
+});
 
-  // Если нажал на "MC" - взять сохранённое значениеw
-
-  if (clickedBtn.classList.contains("btn-pull")) {
-    let pullItem = localStorage.getItem("savedNumber");
-    if (operation === "" && number2 === "") {
-      inputScreen.innerHTML = pullItem;
-      number1 = pullItem;
+document.querySelectorAll(".btn-operation").forEach((element) => {
+  element.addEventListener("click", (event) => {
+    operation = event.target.innerHTML;
+    showContent(operation);
+    if (state) {
+      state = false;
     }
-    if (operation != "") {
-      inputScreen.innerHTML = pullItem;
-      number2 = pullItem;
-    }
-  }
+  });
+});
 
-  // Если нажата одна из цифр - необходимо начать набирать переменные
-
-  if (clickedBtn.classList.contains("btn-digit")) {
-    if (state === false) {
-      if (operation === "" && number2 === "" && number1 === "0") {
-        number1 = clickedBtn.innerHTML;
+document.querySelectorAll(".btn-digit").forEach((element) => {
+  element.addEventListener("click", (event) => {
+    btntext = event.target.innerHTML;
+    if (!state) {
+      if (!operation && number1 != "0") {
+        number1 += btntext;
         showContent(number1);
-        return;
       }
-      if (operation === "" && number2 === "" && number1 != "0") {
-        number1 = number1 + clickedBtn.innerHTML;
-        showContent(number1);
-        return;
-      } else {
-        number2 = number2 + clickedBtn.innerHTML;
+      if (operation) {
+        number2 += btntext;
         showContent(number2);
       }
-    } else {
-      number1 = clickedBtn.innerHTML;
+    }
+    if (state) {
+      number1 = btntext;
       showContent(number1);
       state = false;
     }
-  }
-
-  // Если нажата одна из операций необходимо начать набирать вторую переменную
-
-  if (clickedBtn.classList.contains("btn-operation")) {
-    operation = clickedBtn.innerHTML;
-    showContent(operation);
-    if (number1 !== "" && state === true) {
-      state = false;
-    } else {
-      return;
-    }
-  }
-
-  // Вычисление результата
-
-  if (clickedBtn.classList.contains("btn-result")) {
-    if (number2 === "" && operation != "") {
-      number1 = calculation(number1, number1, operation);
-    }
-    if (number2 === "" && operation === "") {
-      return;
-    } else {
-      number1 = calculation(number1, number2, operation);
-    }
-    calcState(number1);
-  }
+  });
 });
 
 // Функция проведения рассчётов
@@ -118,13 +89,13 @@ function calculation(number1, number2, operation) {
 }
 
 // Функция отображения вычислений на экране
-function showContent(info) {
-  inputScreen.innerHTML = info;
+function showContent(number) {
+  inputScreen.innerHTML = number;
 }
 
 // Функция обновления статсуса после выполнения вычислений
-function calcState(info) {
-  showContent(info);
+function calcState(number) {
+  showContent(number);
   state = true;
   number2 = "";
   operation = "";
