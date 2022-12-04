@@ -8,7 +8,7 @@ let btntext;
 
 document.querySelector(".btn-clear-all").addEventListener("click", clearing);
 
-document.querySelector(".btn-save").addEventListener("click", setStorrage);
+document.querySelector(".btn-save").addEventListener("click", setStorage);
 
 document.querySelector(".btn-pull").addEventListener("click", getStorage);
 
@@ -22,7 +22,7 @@ document.querySelectorAll(".btn-digit").forEach((element) => {
   element.addEventListener("click", setDigit);
 });
 
-function setStorrage() {
+function setStorage() {
   localStorage.setItem("savedNumber", number1);
 }
 
